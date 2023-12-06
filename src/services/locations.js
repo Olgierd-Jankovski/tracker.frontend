@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const axiosInstance = axios.create({
     // here is my example call: https://localhost:7242/Locations/2
-    baseURL: 'https://localhost:7242/Locations',
+    baseURL: `${process.env.REACT_APP_BASE_URL}/Locations`,
 })
 
 export const getLocationNameById = async (LocationId) => {

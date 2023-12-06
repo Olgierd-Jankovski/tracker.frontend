@@ -3,7 +3,7 @@ import { getLocations } from './locations';
 import { dropdownOptions } from '../components/FilterDropdown';
 
 const axiosInstance = axios.create({
-    baseURL: 'https://localhost:7242/Stations',
+    baseURL: `${process.env.REACT_APP_BASE_URL}/Stations`,
 })
 
 export const getStationNames = async () => {

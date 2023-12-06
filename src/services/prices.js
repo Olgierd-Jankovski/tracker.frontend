@@ -4,7 +4,7 @@ import { getTypeNameById } from './types';
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-    baseURL: 'https://localhost:7242/Prices',
+    baseURL: `${process.env.REACT_APP_BASE_URL}/Prices`,
 })
 
 export const GetPrices = async (dispatch) => {
