@@ -1,59 +1,33 @@
-import React from 'react';
-import './App.css';
-import { PricesTable } from './components/PricesTable';
-import { NewPriceModal } from './components/PriceModal';
-import { ToastContainer } from 'react-toastify';
-import FilterDropdown from './components/FilterDropdown';
-import { getTypes} from './services/types';
-import { getStationNames } from './services/stations';
-import SignInPage from './components/SignInPage';
 import SignUpPage from './components/SignUpPage';
+import SignInPage from './components/SignInPage';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import HomePage from './components/HomePage';
+import { useSelector } from 'react-redux';
+import './App.css';
 
 
 const App = () => {
-  const [selectedStation, setSelectedStation] = React.useState('All');
-  const [selectedFuelType, setSelectedFuelType] = React.useState('All');
-  const [dropdownOptions, setDropdownOptions] = React.useState([]);
+  const { isLoggedIn } = useSelector(state => state.authenticationReducer);
 
-
-  const handleStationChange = (station) => {
-    setSelectedStation(station);
-  };
-
-  const handleFuelTypeChange = (fuelType) => {
-    setSelectedFuelType(fuelType);
-  };
-
-
-  return (
-    <div className="App">
-      <SignInPage />
-      {/* <h3> Gas Station Prices</h3>
-      <div style={{ maxWidth: '70%', margin: 'auto' }}>
-        <ToastContainer />
-        <div style={{ textAlign: 'right' }}>
-          <NewPriceModal />
-        </div>
-        <div style={{ marginBottom: '10px' }}>
-          <FilterDropdown
-            label="Gas Station"
-            //options={['Neste', 'Circle K']}
-            value={selectedStation}
-            onChange={handleStationChange}
-            fetchData={getStationNames}
-          />
-          <FilterDropdown
-            label="Fuel Type"
-            //options={['95', '98', 'D']}
-            value={selectedFuelType}
-            onChange={handleFuelTypeChange}
-            fetchData={getTypes}
-          />
-        </div>
-        <PricesTable selectedStation={selectedStation} selectedFuelType={selectedFuelType}/>
-      </div> */}
-    </div >
-  );
+  return <BrowserRouter>
+    <Routes>
+      <Route
+        path="/"
+        element={isLoggedIn ? <HomePage /> : <SignInPage />}
+      />
+      <Route
+        path="/signup"
+        element={isLoggedIn ? <Navigate to="/" /> : <SignUpPage />}
+      />
+      <Route
+        path="/signin"
+        element={isLoggedIn ? <Navigate to="/" /> : <SignInPage />}
+      />
+      <Route
+        path="/*"
+        element={<h2>Page not found!</h2>}
+      />
+    </Routes>
+  </BrowserRouter>
 }
-
 export default App;
