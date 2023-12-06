@@ -2,9 +2,41 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
+## Fuel Price Tracking Frontend
+
+The repository houses the frontend code for Fuel Price Tracking web application. The application is designed to track and manage fuel prices at various locations and provide users with real-time updates on fuel costs.
+
+### Overview
+
+Fuel Price Tracking is a full-stack web application consisting of both frontend (client-side) and backend(server-side) components. The frontend, found in this repository, handles user interactions, renders fuel price pages and communicates with the backend api.
+
+### Features
+
+The frontend of the Fuel Price Tracking system serves as a robust tool designed to deliver essential information regarding gas station price reviews and management. It offers:
+ - Table: showing best fuel prices as well as providing gas type (e.g. 95, 98, Diesel) as well as address from the specific station
+ - Dropdown lists: option of efficient specific fuel price filtering according to the address or gas type/
+ - Price Updating Modals:  these modals provide a responsive and comprehensive tool for editing selected fuel prices. Users can input prices in a specific format, receive notifications, and benefit from an automatic update feature that ensures the latest date is always reflected accurately.
+ - Toast Notifications: these notifications serve as a user-friendly feedback mechanism, informing the user about the success or failure of an action (e.g. updating fuel price in the database).
+
+### Technologies Used:
+- Node.js
+- React
+- Redux
+- Axios
+- Bootstrap
+- React Toastify
+
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm install`
+
+Installs the project dependencies specified in the `package.json` file. This command is necessary before running the app for the first time or after pulling changes that may have introduced new dependencies.
+
+Running this command ensures that all required libraries and packages are downloaded and installed in the `node_modules` folder. It reads the dependency information from `package.json` and installs the specified versions, providing a consistent environment for development.
+
+Before starting the app or contributing to the project, it's recommended to run `npm install` to make sure you have all the required dependencies. The repository does not contain the `node_modules`, it contains a large number of files and it's common practise to exclude it from version control system.
 
 ### `npm start`
 
