@@ -5,6 +5,11 @@ const axiosInstance = axios.create({
     baseURL: `${process.env.REACT_APP_BASE_URL}/Locations`,
 })
 
+axiosInstance.interceptors.request.use(config => {
+    config.headers.Authorization= 'Bearer ' + sessionStorage.getItem('token');
+    return config;
+})
+
 export const getLocationNameById = async (LocationId) => {
     try
     {

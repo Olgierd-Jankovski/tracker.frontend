@@ -4,6 +4,11 @@ const axiosInstance = axios.create({
     baseURL: `${process.env.REACT_APP_BASE_URL}/Types`,
 })
 
+axiosInstance.interceptors.request.use(config => {
+    config.headers.Authorization= 'Bearer ' + sessionStorage.getItem('token');
+    return config;
+})
+
 export const getTypeNameById = async (TypeId) => {
     try{
         const response = await axiosInstance.get(`/${TypeId}`);

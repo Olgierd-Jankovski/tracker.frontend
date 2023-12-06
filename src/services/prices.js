@@ -7,6 +7,11 @@ const axiosInstance = axios.create({
     baseURL: `${process.env.REACT_APP_BASE_URL}/Prices`,
 })
 
+axiosInstance.interceptors.request.use(config => {
+    config.headers.Authorization= 'Bearer ' + sessionStorage.getItem('token');
+    return config;
+})
+
 export const GetPrices = async (dispatch) => {
     try {
         // api call
