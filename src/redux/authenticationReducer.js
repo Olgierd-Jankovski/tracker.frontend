@@ -13,10 +13,11 @@ export const ActionCreators = {
     logout: () => ({ type: ActionTypes.LOGOUT })
 }
 
-// export const {userAuthenticated, logout} = authenticationSlice.actions;
 export default function AuthenticationReducer(state = initialState, action) {
     switch (action.type) {
         case ActionTypes.USER_AUTHENTICATED:
+            // store the token in sessionStorage
+            sessionStorage.setItem('token', action.payload.token);
             return { ...state, token: action.payload.token, isLoggedIn: true }
         case ActionTypes.LOGOUT:
             // sessionStorage.clear();

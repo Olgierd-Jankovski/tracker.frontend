@@ -6,6 +6,9 @@ import { ToastContainer } from 'react-toastify';
 import FilterDropdown from './components/FilterDropdown';
 import { getTypes} from './services/types';
 import { getStationNames } from './services/stations';
+import SignInPage from './components/SignInPage';
+import SignUpPage from './components/SignUpPage';
+
 
 const App = () => {
   const [selectedStation, setSelectedStation] = React.useState('All');
@@ -24,7 +27,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <h3> Gas Station Prices</h3>
+      <SignInPage />
+      {/* <h3> Gas Station Prices</h3>
       <div style={{ maxWidth: '70%', margin: 'auto' }}>
         <ToastContainer />
         <div style={{ textAlign: 'right' }}>
@@ -47,7 +51,7 @@ const App = () => {
           />
         </div>
         <PricesTable selectedStation={selectedStation} selectedFuelType={selectedFuelType}/>
-      </div>
+      </div> */}
     </div >
   );
 }
