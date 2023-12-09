@@ -20,7 +20,7 @@ export default function AuthenticationReducer(state = initialState, action) {
             sessionStorage.setItem('token', action.payload.token);
             return { ...state, token: action.payload.token, isLoggedIn: true }
         case ActionTypes.LOGOUT:
-            // sessionStorage.clear();
+            sessionStorage.clear();
             return { ...state, token: '', isLoggedIn: false }
         default:
             return state
