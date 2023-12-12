@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import './styles/FillUpPage.css';
-import BestFuelPriceFillUpModal from './BestFuelPriceFillUpModal';
+import BestFuelPriceFillUpModalWithGrid from './BestFuelPriceFillUpModalWithGrid';
 
 const calculateAverage = (prices) => {
     if (prices.length === 0) {
@@ -11,7 +11,7 @@ const calculateAverage = (prices) => {
     return (sum / prices.length).toFixed(2);
 };
 
-const FuelType = ({ type, prices, onSelect, onHover, isSelected }) => {
+const FuelType = ({ type, averagePrice, onSelect, onHover, isSelected }) => {
     return (
         <div
             className={`fuel-type ${isSelected ? 'selected' : ''}`}
@@ -20,7 +20,7 @@ const FuelType = ({ type, prices, onSelect, onHover, isSelected }) => {
         // render additional information if needed
         >
             <h3>{type}</h3>
-            <p>{`Average Price: ${calculateAverage(prices)}`}</p>
+            <p>{`Average Price: ${averagePrice}`}</p>
         </div>
     );
 };
@@ -28,8 +28,9 @@ const FuelType = ({ type, prices, onSelect, onHover, isSelected }) => {
 const FillUpPage = () => {
     const [selectedFuelType, setSelectedFuelType] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [averagePrices, setAveragePrices] = useState({}); // Store the average prices
 
-    const fuelTypes = [
+    const fuelTypes = useMemo(() => [
         {
             type: '95', prices: [2.50, 2.60, 2.70], locations: [
                 { id: 1, name: "Zirmunu g. 1", price: 2.50 },
@@ -51,14 +52,28 @@ const FillUpPage = () => {
                 { id: 3, name: "Vilties g. 3", price: 4.40 }
             ]
         },
-    ];
+    ], []); // Empty dependency array means this memoized value won't  change after the first render
+
+    // Calculate the average prices when the component is mounted
+    useEffect(() => {
+        const  calculateAveragePrices = () => {
+            const prices = {};
+            fuelTypes.forEach((fuel) => {
+                prices[fuel.type] = calculateAverage(fuel.prices);
+            });
+            setAveragePrices(prices);
+        };
+
+        calculateAveragePrices();
+    }, [fuelTypes]); // (memoized)Now, fuelTypes is part of the dependency array, and it won't trigger unnecessary renders
+
 
     const renderFuelTypes = () => {
         return fuelTypes.map((fuel) => (
             <div key={fuel.type} className="fuel-type">
                 <FuelType
                     type={fuel.type}
-                    prices={fuel.prices}
+                    averagePrice={averagePrices[fuel.type]}
                     locations={fuel.locations}
                     // print locations
                     onSelect={handleFuelTypeSelect}
@@ -76,6 +91,7 @@ const FillUpPage = () => {
 
     const handleFuelTypeSelect = (selectedType) => {
         setSelectedFuelType(selectedType);
+
         // Clear any selected fuel type or reset other relevant store
         setIsModalOpen(true);
     };
@@ -85,24 +101,24 @@ const FillUpPage = () => {
         setSelectedFuelType(null);
     };
 
-   /*  // Add logic for handling clicks outside of the fuel types container
-    // to deselect the selected fuel type
-    useEffect(() => {
-        const handleContainerClick = (event) => {
-            const fuelTypesContainer = document.querySelector('.fuel-types');
-            const isInsideContainer = fuelTypesContainer && fuelTypesContainer.contains(event.target);
-
-            if (!isInsideContainer && selectedFuelType !== null) {
-                setSelectedFuelType(null);
-            }
-        };
-
-        document.addEventListener('mousedown', handleContainerClick);
-
-        return () => {
-            document.removeEventListener('mousedown', handleContainerClick);
-        };
-    }, [selectedFuelType]); */
+    /*  // Add logic for handling clicks outside of the fuel types container
+     // to deselect the selected fuel type
+     useEffect(() => {
+         const handleContainerClick = (event) => {
+             const fuelTypesContainer = document.querySelector('.fuel-types');
+             const isInsideContainer = fuelTypesContainer && fuelTypesContainer.contains(event.target);
+ 
+             if (!isInsideContainer && selectedFuelType !== null) {
+                 setSelectedFuelType(null);
+             }
+         };
+ 
+         document.addEventListener('mousedown', handleContainerClick);
+ 
+         return () => {
+             document.removeEventListener('mousedown', handleContainerClick);
+         };
+     }, [selectedFuelType]); */
 
 
     return (
@@ -112,9 +128,10 @@ const FillUpPage = () => {
             </div>
             <div className="fuel-types">{renderFuelTypes()}</div>
             {isModalOpen && (
-                <BestFuelPriceFillUpModal
+                <BestFuelPriceFillUpModalWithGrid
                     locations={fuelTypes.find(fuel => fuel.type === selectedFuelType).locations}
                     onClose={handleModalClose}
+                    averagePrice={averagePrices[selectedFuelType]}
                 />
             )}
         </div>

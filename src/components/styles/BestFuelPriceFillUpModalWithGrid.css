@@ -1,0 +1,10 @@
+.grid-example .row>.col,.grid-example .row>[class^=col-] {
+    background-color: #712cf926;
+    border: 1px solid #712cf94d;
+    padding-bottom: .75rem;
+    padding-top: .75rem
+}
+
+.carbonads_sLMe,.grid-example .row+.row {
+    margin-top: 1rem
+}
