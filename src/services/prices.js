@@ -20,7 +20,7 @@ export const GetPrices = async (dispatch) => {
         axiosInstance.get()
             .then(async response => {
                 const formattedPrices = await formatPrices(response.data);
-                console.log(formattedPrices);
+                //console.log(formattedPrices);
                 dispatch(ActionCreators.setPrices(formattedPrices));
             })
             .catch(error => {

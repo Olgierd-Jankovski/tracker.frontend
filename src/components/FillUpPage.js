@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { GetPrices } from '../services/prices';
 import './styles/FillUpPage.css';
 import BestFuelPriceFillUpModalWithGrid from './BestFuelPriceFillUpModalWithGrid';
 
@@ -28,9 +30,12 @@ const FuelType = ({ type, averagePrice, onSelect, onHover, isSelected }) => {
 const FillUpPage = () => {
     const [selectedFuelType, setSelectedFuelType] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const dispatch = useDispatch();
     const [averagePrices, setAveragePrices] = useState({}); // Store the average prices
+    const [fuelTypes, setFuelTypes] = useState([]); // Store the fuel types
+    const pricesData = useSelector(state => state.pricesReducer.prices);
 
-    const fuelTypes = useMemo(() => [
+    /* const fuelTypes = useMemo(() => [
         {
             type: '95', prices: [2.50, 2.60, 2.70], locations: [
                 { id: 1, name: "Zirmunu g. 1", price: 2.50 },
@@ -53,10 +58,10 @@ const FillUpPage = () => {
             ]
         },
     ], []); // Empty dependency array means this memoized value won't  change after the first render
-
+ */
     // Calculate the average prices when the component is mounted
     useEffect(() => {
-        const  calculateAveragePrices = () => {
+        const calculateAveragePrices = () => {
             const prices = {};
             fuelTypes.forEach((fuel) => {
                 prices[fuel.type] = calculateAverage(fuel.prices);
@@ -119,6 +124,48 @@ const FillUpPage = () => {
              document.removeEventListener('mousedown', handleContainerClick);
          };
      }, [selectedFuelType]); */
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                // Dispatch the action to fetch the prices
+                await GetPrices(dispatch);
+
+            } catch (error) {
+                console.log("Error in fetchData: ", error);
+            }
+        };
+
+        fetchData();
+    }, [dispatch]);
+
+    useEffect(() => {
+        //Extract unique fuel types from the prices Data
+        const uniqueFuelTypes = [...new Set(pricesData.map(price => price.FuelType))];
+    
+        // Create a new array of fuel types with prices list
+        const updatedFuelTypes = uniqueFuelTypes.map(fuelType => {
+            const pricesForFuelType = pricesData.filter(price => price.FuelType === fuelType);
+            const prices = pricesForFuelType.map(price => price.value);
+            // we can modify this logic based on our actual data structure
+            return {
+                type: fuelType,
+                prices: prices,
+                locations: pricesForFuelType.map(price => ({
+                    id: price.id,
+                    name: price.Location,
+                    price: price.value.toFixed(2),
+                })),
+            };
+        });
+
+        setAveragePrices(updatedFuelTypes.reduce((acc, fuelType) => {
+            acc[fuelType.type] = fuelType.averagePrice;
+            return acc;
+        }, {}));
+
+        setFuelTypes(updatedFuelTypes);
+    }, [pricesData]);
 
 
     return (
