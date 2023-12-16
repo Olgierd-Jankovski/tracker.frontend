@@ -159,11 +159,6 @@ const FillUpPage = () => {
             };
         });
 
-        setAveragePrices(updatedFuelTypes.reduce((acc, fuelType) => {
-            acc[fuelType.type] = fuelType.averagePrice;
-            return acc;
-        }, {}));
-
         setFuelTypes(updatedFuelTypes);
     }, [pricesData]);
 

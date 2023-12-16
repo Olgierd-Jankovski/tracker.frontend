@@ -5,6 +5,7 @@ import Navbar from './components/NavBar';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import FillUpPage from './components/FillUpPage';
+import StatisticsPage from './components/StatisticsPage';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { ActionCreators } from './redux/authenticationReducer';
@@ -41,8 +42,14 @@ const App = () => {
         element={isLoggedIn ? <Navigate to='/' /> : <SignInPage />}
       />
       <Route
-        path='fill-up'
-        element={<FillUpPage/>} />
+        path='/fill-up'
+        element={isLoggedIn ? <FillUpPage /> : <SignInPage />}
+      />
+      <Route
+        path='/statistics'
+        element={isLoggedIn ?<StatisticsPage /> : <SignInPage />}
+      />
+
       <Route
         path='/*'
         element={<h2>Page not found!</h2>}
