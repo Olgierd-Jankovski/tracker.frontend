@@ -16,7 +16,6 @@ axiosInstance.interceptors.request.use(config => {
 export const getExpensesPerCategory = async (dispatch) => {
     try {
         const { data } = await axiosInstance.get('/expenses');
-        console.log("expenses....: ");
         dispatch(setExpenseAmountPerCategory(data));
 
     } catch (error) {
@@ -27,7 +26,6 @@ export const getExpensesPerCategory = async (dispatch) => {
 export const getSavingsPerCategory = async (dispatch) => {
     try {
         const { data } = await axiosInstance.get('/savings');
-        console.log("savings....: ");
         dispatch(setSavingAmountPerCategory(data));
 
     } catch (error) {

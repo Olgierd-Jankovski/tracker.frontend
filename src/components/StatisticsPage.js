@@ -51,6 +51,11 @@ const StatisticsPage = () => {
         }
     }, [expenseAmountPerCategory, savingAmountPerCategory, displayType]);
 
+    const handleDisplayTypeChange = (type) => {
+        console.log('Display Type changed:', type);
+        setDisplayType(type);
+    };
+
     const data = {
         labels: doughnut.labels,
         datasets: [{
@@ -71,7 +76,7 @@ const StatisticsPage = () => {
             },
             title: {
                 display: true,
-                text: 'Expenses per Category'
+                text: `${displayType === 'expenses' ? 'Expenses' : 'Savings'} per Category`
             },
 
         }
@@ -90,7 +95,8 @@ const StatisticsPage = () => {
 
             if (tooltip && tooltip.dataPoints && tooltip.dataPoints.length > 0) {
                 const value = tooltip.dataPoints[0].formattedValue;
-                const text = `${displayType === 'expenses' ? 'Euro spent: ' : 'Euro saved: '} ${value}`;
+                const displayText = displayType === 'expenses' ? 'Euro spent: ' : 'Euro saved: ';
+                const text = `${displayText} ${value}`;
                 const textX = Math.round((width - ctx.measureText(text).width) / 2);
                 const textY = height / 2;
 
@@ -104,13 +110,13 @@ const StatisticsPage = () => {
     return (
         <div>
             <button
-                onClick={() => setDisplayType('expenses')}
+                onClick={() => handleDisplayTypeChange('expenses')}
                 className={displayType === 'expenses' ? 'active' : ''}
             >
                 Expenses
             </button>
             <button
-                onClick={() => setDisplayType('savings')}
+                onClick={() => handleDisplayTypeChange('savings')}
                 className={displayType === 'savings' ? 'active' : ''}
             >
                 Savings

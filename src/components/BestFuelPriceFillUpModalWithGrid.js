@@ -1,6 +1,8 @@
 // BestFuelPriceFillUpModalWithGrid.js
 import React, { useState, useEffect } from 'react';
 import { calculateSavings, renderSavingsColor } from '../utils/fuelSavingsUtils';
+import { CreateExpense } from '../services/expenses';
+import { CreateSaving } from '../services/savings';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
@@ -24,8 +26,23 @@ const BestFuelPriceFillUpModalWithGrid = ({ locations, onClose, averagePrice }) 
 
     const handleFinishFillUp = () => {
         // Implement logic to handle filling up and calculate cost savings
-        // ...
-        onClose(); // Close the modal after the fill up is finished
+        // ... 
+
+        if (fillAmount >= 0) {
+            const expenseAmount = selectedLocation.price * fillAmount;
+            const savingAmount = calculateSavings(selectedLocation, fillAmount, averagePrice);
+
+            try {
+                // TO-DO: implement logic for passing typeIds (they are absent in the current implementation)
+                CreateExpense({ amount: expenseAmount, typeId: 3 });
+                CreateSaving({ amount: savingAmount, typeId: 3 });
+            } catch (error) {
+                console.log("Error creating expense or saving: ", error);
+            }
+        }
+
+        // Close the modal after the fill up is finished
+        onClose();
     };
 
     useEffect(() => {
@@ -55,7 +72,7 @@ const BestFuelPriceFillUpModalWithGrid = ({ locations, onClose, averagePrice }) 
                             <Col className='d-flex flex-column align-items-center'>
                                 <label>
                                     Fill Amount (in liters):
-                                    <input type="number" value={fillAmount} onChange={handleFillAmountChange} className='form-control'/>
+                                    <input type="number" value={fillAmount} onChange={handleFillAmountChange} className='form-control' />
                                 </label>
                                 <button onClick={handleFinishFillUp} className='btn btn-primary mt-3'>Finish Fill Up</button>
                             </Col>
@@ -76,7 +93,7 @@ const BestFuelPriceFillUpModalWithGrid = ({ locations, onClose, averagePrice }) 
                                     const savings = calculateSavings(location, 1, averagePrice);
                                     const savingsColor = renderSavingsColor(savings);
                                     return (
-                                        <p style={{color : savingsColor}}>
+                                        <p style={{ color: savingsColor }}>
                                             {`Profit/Loss per Liter: ${savings.toFixed(2)}`}
                                         </p>
                                     );

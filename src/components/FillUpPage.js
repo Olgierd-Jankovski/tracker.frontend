@@ -142,7 +142,7 @@ const FillUpPage = () => {
     useEffect(() => {
         //Extract unique fuel types from the prices Data
         const uniqueFuelTypes = [...new Set(pricesData.map(price => price.FuelType))];
-    
+
         // Create a new array of fuel types with prices list
         const updatedFuelTypes = uniqueFuelTypes.map(fuelType => {
             const pricesForFuelType = pricesData.filter(price => price.FuelType === fuelType);
