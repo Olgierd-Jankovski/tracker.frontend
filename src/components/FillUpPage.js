@@ -13,7 +13,7 @@ const calculateAverage = (prices) => {
     return (sum / prices.length).toFixed(2);
 };
 
-const FuelType = ({ type, averagePrice, onSelect, onHover, isSelected }) => {
+const FuelType = ({ type, typeId, averagePrice, onSelect, onHover, isSelected }) => {
     return (
         <div
             className={`fuel-type ${isSelected ? 'selected' : ''}`}
@@ -35,30 +35,6 @@ const FillUpPage = () => {
     const [fuelTypes, setFuelTypes] = useState([]); // Store the fuel types
     const pricesData = useSelector(state => state.pricesReducer.prices);
 
-    /* const fuelTypes = useMemo(() => [
-        {
-            type: '95', prices: [2.50, 2.60, 2.70], locations: [
-                { id: 1, name: "Zirmunu g. 1", price: 2.50 },
-                { id: 2, name: "Pylimo g. 2", price: 2.60 },
-                { id: 3, name: "Vilties g. 3", price: 2.70 }
-            ]
-        },
-        {
-            type: '98', prices: [3.50, 3.60, 3.70], locations: [
-                { id: 1, name: "Zirmunu g. 1", price: 3.50 },
-                { id: 2, name: "Pylimo g. 2", price: 3.60 },
-                { id: 3, name: "Vilties g. 3", price: 3.70 }
-            ]
-        },
-        {
-            type: 'Diesel', prices: [4.20, 4.30, 4.40], locations: [
-                { id: 1, name: "Zirmunu g. 1", price: 4.20 },
-                { id: 2, name: "Pylimo g. 2", price: 4.30 },
-                { id: 3, name: "Vilties g. 3", price: 4.40 }
-            ]
-        },
-    ], []); // Empty dependency array means this memoized value won't  change after the first render
- */
     // Calculate the average prices when the component is mounted
     useEffect(() => {
         const calculateAveragePrices = () => {
@@ -78,6 +54,7 @@ const FillUpPage = () => {
             <div key={fuel.type} className="fuel-type">
                 <FuelType
                     type={fuel.type}
+                    typeId={fuel.typeId}
                     averagePrice={averagePrices[fuel.type]}
                     locations={fuel.locations}
                     // print locations
@@ -97,7 +74,7 @@ const FillUpPage = () => {
     const handleFuelTypeSelect = (selectedType) => {
         setSelectedFuelType(selectedType);
 
-        // Clear any selected fuel type or reset other relevant store
+        // Pop up the modal
         setIsModalOpen(true);
     };
 
@@ -105,25 +82,6 @@ const FillUpPage = () => {
         setIsModalOpen(false);
         setSelectedFuelType(null);
     };
-
-    /*  // Add logic for handling clicks outside of the fuel types container
-     // to deselect the selected fuel type
-     useEffect(() => {
-         const handleContainerClick = (event) => {
-             const fuelTypesContainer = document.querySelector('.fuel-types');
-             const isInsideContainer = fuelTypesContainer && fuelTypesContainer.contains(event.target);
- 
-             if (!isInsideContainer && selectedFuelType !== null) {
-                 setSelectedFuelType(null);
-             }
-         };
- 
-         document.addEventListener('mousedown', handleContainerClick);
- 
-         return () => {
-             document.removeEventListener('mousedown', handleContainerClick);
-         };
-     }, [selectedFuelType]); */
 
     useEffect(() => {
         const fetchData = async () => {
@@ -147,9 +105,11 @@ const FillUpPage = () => {
         const updatedFuelTypes = uniqueFuelTypes.map(fuelType => {
             const pricesForFuelType = pricesData.filter(price => price.FuelType === fuelType);
             const prices = pricesForFuelType.map(price => price.value);
+
             // we can modify this logic based on our actual data structure
             return {
                 type: fuelType,
+                fuelTypeId: pricesData.find(price => price.FuelType === fuelType).typeId,
                 prices: prices,
                 locations: pricesForFuelType.map(price => ({
                     id: price.id,
@@ -174,6 +134,7 @@ const FillUpPage = () => {
                     locations={fuelTypes.find(fuel => fuel.type === selectedFuelType).locations}
                     onClose={handleModalClose}
                     averagePrice={averagePrices[selectedFuelType]}
+                    fuelTypeId={fuelTypes.find(fuel => fuel.type === selectedFuelType).fuelTypeId}
                 />
             )}
         </div>

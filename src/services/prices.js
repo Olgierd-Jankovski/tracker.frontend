@@ -44,6 +44,7 @@ const formatPrices = async (prices) => {
                     id,
                     value,
                     FuelType: fuelType,
+                    typeId, // add this for filling fuel type recognition purposes
                     Location: location,
                     date,
                 };

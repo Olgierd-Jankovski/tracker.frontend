@@ -9,13 +9,13 @@ const ToastMiddleware = () => next => action => {
             toast.success('Prices loaded successfully');
             break;
         case ActionTypes.DELETE_PRICE:
-            toast.success('New Price added successfully');
+            toast.success('Selected Price deleted successfully');
             break;
         case ActionTypes.NEW_PRICE:
-            toast.success('Selected Price edited successfully');
+            toast.success('New Price added successfully');
             break;
         case ActionTypes.EDIT_PRICE:
-            toast.success('Selected Price deleted successfully');
+            toast.success('Selected Price edited successfully');
             break;
         default:
             break;

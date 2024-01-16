@@ -12,7 +12,7 @@ import Row from 'react-bootstrap/Row';
 
 import './styles/BestFuelPriceFillUpModalWithGrid.css';
 
-const BestFuelPriceFillUpModalWithGrid = ({ locations, onClose, averagePrice }) => {
+const BestFuelPriceFillUpModalWithGrid = ({ locations, onClose, averagePrice, fuelTypeId }) => {
     const [selectedLocation, setSelectedLocation] = useState(null);
     const [fillAmount, setFillAmount] = useState(0);
 
@@ -34,8 +34,8 @@ const BestFuelPriceFillUpModalWithGrid = ({ locations, onClose, averagePrice }) 
 
             try {
                 // TO-DO: implement logic for passing typeIds (they are absent in the current implementation)
-                CreateExpense({ amount: expenseAmount, typeId: 3 });
-                CreateSaving({ amount: savingAmount, typeId: 3 });
+                CreateExpense({ amount: expenseAmount, typeId: fuelTypeId });
+                CreateSaving({ amount: savingAmount, typeId: fuelTypeId });
             } catch (error) {
                 console.log("Error creating expense or saving: ", error);
             }
