@@ -20,7 +20,7 @@ export const GetPrices = async (dispatch) => {
         axiosInstance.get()
             .then(async response => {
                 const formattedPrices = await formatPrices(response.data);
-                console.log(formattedPrices);
+                //console.log(formattedPrices);
                 dispatch(ActionCreators.setPrices(formattedPrices));
             })
             .catch(error => {
@@ -44,6 +44,7 @@ const formatPrices = async (prices) => {
                     id,
                     value,
                     FuelType: fuelType,
+                    typeId, // add this for filling fuel type recognition purposes
                     Location: location,
                     date,
                 };

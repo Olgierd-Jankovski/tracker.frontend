@@ -1,0 +1,103 @@
+.fill-up-page {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+    /* 100% of the viewport height */
+}
+
+.price-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.price {
+    margin-bottom: 5px;
+}
+
+.info-column {
+    padding: 20px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.fuel-types {
+    display: flex;
+    flex: 1;
+    border: 1px solid #ccc; /* Border for the main columns */
+}
+
+.fuel-type-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.fuel-type {
+    flex: 1;
+    /* Each fuel type takes an equal portion of the available space */
+    padding: 10px;
+    box-sizing: border-box; /* Ensure padding is included in the width */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease, filter 0.3s ease;;
+
+    /* Add these styles to center content */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* Apply filter to the base styles */
+    /* filter: brightness(0.8) blur(1px);*/
+}
+
+
+.selected {
+    background-color: #d3ffd3;
+}
+
+.fuel-type:hover:not(.selected) {
+    background-color: #f0f0f0;
+    /* Add a slight background color on hover */
+    transform: scale(1.05); /* Slightly increase in size on hover */
+    /* filter: brightness(1) blur(0); */
+}
+
+.fuel-info {
+    flex: 1;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.fuel-details {
+    flex: 2;
+    padding: 20px;
+    border: 1px solid #ccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fuel-details h2 {
+    margin-bottom: 10px;
+}
+
+.fuel-details button {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #4caf50;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.fuel-details button:hover {
+    background-color: #45a049;
+}

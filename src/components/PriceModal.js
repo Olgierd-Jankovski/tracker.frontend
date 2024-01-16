@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Modal, Button, InputGroup, FormControl} from 'react-bootstrap';
-import {useDispatch} from 'react-redux';
+import { Form, Modal, Button, InputGroup, FormControl } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 import { EditPrice, NewPrice } from '../services/prices';
 
 
@@ -43,7 +43,7 @@ const PriceModal = ({ price, handleFormSubmit, show, handleClose }) => {
         const pricePattern = /^\d\.\d{3}$/; // regex pattern for price validation // sample: 1.000
         setIsValidPrice(pricePattern.test(value));
     }
-    
+
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
@@ -51,7 +51,7 @@ const PriceModal = ({ price, handleFormSubmit, show, handleClose }) => {
             </Modal.Header>
             <Form onSubmit={event => {
                 event.preventDefault();
-                if(isValidPrice) {
+                if (isValidPrice) {
                     handleFormSubmit(dispatch, modalPrice);
                     handleClose();
                 }
@@ -59,13 +59,13 @@ const PriceModal = ({ price, handleFormSubmit, show, handleClose }) => {
                     alert('Invalid price format! Please enter a price in the format "1.000".');
                 }
             }}>
-                <Modal.Body> 
+                <Modal.Body>
                     <InputGroup>
                         <FormControl value={modalPrice === null ? '' : modalPrice}
                             onChange={event => {
                                 setModalPrice(event.target.value);
                                 validatePrice(event.target.value);
-                                }} />
+                            }} />
                     </InputGroup>
                 </Modal.Body>
                 <Modal.Footer>
