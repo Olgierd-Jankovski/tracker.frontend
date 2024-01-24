@@ -13,10 +13,13 @@ Fuel Price Tracking is a full-stack web application consisting of both frontend 
 ### Features
 
 The frontend of the Fuel Price Tracking system serves as a robust tool designed to deliver essential information regarding gas station price reviews and management. It offers:
- - Table: showing best fuel prices as well as providing gas type (e.g. 95, 98, Diesel) as well as address from the specific station
- - Dropdown lists: option of efficient specific fuel price filtering according to the address or gas type/
- - Price Updating Modals:  these modals provide a responsive and comprehensive tool for editing selected fuel prices. Users can input prices in a specific format, receive notifications, and benefit from an automatic update feature that ensures the latest date is always reflected accurately.
- - Toast Notifications: these notifications serve as a user-friendly feedback mechanism, informing the user about the success or failure of an action (e.g. updating fuel price in the database).
+ - `Table`: showing best fuel prices as well as providing gas type (e.g. 95, 98, Diesel) as well as address from the specific station
+ - `Dropdown lists`: option of efficient specific fuel price filtering according to the address or gas type/
+ - `Price Updating Modals`:  these modals provide a responsive and comprehensive tool for editing selected fuel prices. Users can input prices in a specific format, receive notifications, and benefit from an automatic update feature that ensures the latest date is always reflected accurately.
+ - `Statistics`: elevates user's financial insights with sleek donut charts, showcasing a visual representation of user's overall savings and expenses.
+ - `Filling up`: providing an ability to choose the wanted Gas Type as well as to effortessly discover the best locations nearby with cumulative amount of money users will save or potentially waste while filling up their gas tanks.
+ - `Authorization`: JWT token usage assures that only authorized users are able to access server resources.
+ - `Toast Notifications`: these notifications serve as a user-friendly feedback mechanism, informing the user about the success or failure of an action (e.g. updating fuel price in the database).
 
 ### Technologies Used:
 - Node.js
@@ -25,6 +28,7 @@ The frontend of the Fuel Price Tracking system serves as a robust tool designed 
 - Axios
 - Bootstrap
 - React Toastify
+- React Chart.js
 
 ## Available Scripts
 
