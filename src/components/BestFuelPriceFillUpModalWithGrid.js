@@ -1,6 +1,6 @@
 // BestFuelPriceFillUpModalWithGrid.js
 import React, { useState, useEffect } from 'react';
-import { calculateSavings, renderSavingsColor } from '../utils/fuelSavingsUtils';
+import { calculateSavings, renderSavingsColor } from '../utils/fuelSavingsUtils.tsx';
 import { CreateExpense } from '../services/expenses';
 import { CreateSaving } from '../services/savings';
 import Modal from 'react-bootstrap/Modal';
