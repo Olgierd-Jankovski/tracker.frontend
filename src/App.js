@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import SignUpPage from './components/SignUpPage';
 import SignInPage from './components/SignInPage';
+import NotificationContainer from './components/NotificationContainer.tsx'
 import Navbar from './components/NavBar';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './components/HomePage';
@@ -27,34 +28,36 @@ const App = () => {
   }, [])
 
   return <BrowserRouter>
-    <Navbar />
-    <Routes>
-      <Route
-        path='/'
-        element={isLoggedIn ? <HomePage /> : <SignInPage />}
-      />
-      <Route
-        path='/signup'
-        element={isLoggedIn ? <Navigate to='/' /> : <SignUpPage />}
-      />
-      <Route
-        path='/signin'
-        element={isLoggedIn ? <Navigate to='/' /> : <SignInPage />}
-      />
-      <Route
-        path='/fill-up'
-        element={isLoggedIn ? <FillUpPage /> : <SignInPage />}
-      />
-      <Route
-        path='/statistics'
-        element={isLoggedIn ?<StatisticsPage /> : <SignInPage />}
-      />
+    <NotificationContainer>
+      <Navbar />
+      <Routes>
+        <Route
+          path='/'
+          element={isLoggedIn ? <HomePage /> : <SignInPage />}
+        />
+        <Route
+          path='/signup'
+          element={isLoggedIn ? <Navigate to='/' /> : <SignUpPage />}
+        />
+        <Route
+          path='/signin'
+          element={isLoggedIn ? <Navigate to='/' /> : <SignInPage />}
+        />
+        <Route
+          path='/fill-up'
+          element={isLoggedIn ? <FillUpPage /> : <SignInPage />}
+        />
+        <Route
+          path='/statistics'
+          element={isLoggedIn ? <StatisticsPage /> : <SignInPage />}
+        />
 
-      <Route
-        path='/*'
-        element={<h2>Page not found!</h2>}
-      />
-    </Routes>
+        <Route
+          path='/*'
+          element={<h2>Page not found!</h2>}
+        />
+      </Routes>
+    </NotificationContainer>
   </BrowserRouter>
 }
 export default App;
