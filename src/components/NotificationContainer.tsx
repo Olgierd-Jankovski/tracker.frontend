@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppNotification, AppNotificationsState, ActionCreators } from '../redux/notificationsReducer'
 import NotificationBell from './NotificationBell';
 import NotificationList from './NotificationList';
-import './styles/Notification.css';
 
 interface NotificationContainerProps {
     children: React.ReactNode;
@@ -16,12 +15,17 @@ const NotificationContainer: React.FC<NotificationContainerProps> = ({ children 
     const [showNotificationList, setShowNotificationList] = useState(false);
 
     const generateDummyNotifications = (): AppNotification[] => {
-        return Array.from({ length: 5 }, (_, index) => ({
-            id: `id_${index}`,
-            message: `Dummy Notification ${index + 1}`,
-            read: false,
-            type: 'info',
-        }));
+        return Array.from({ length: 5 }, (_, index) => {
+            const type = index % 2 === 0 ? 'info' : 'warning';
+            const message = index % 2 === 0 ? `Dummy Notification ${index + 1}` : 'Ongoing maintenace in 1 hour!';
+            return{
+
+                id: `id_${index}`,
+                message: message,
+                read: false,
+                type: type,
+            }
+        });
     };
 
 
@@ -52,18 +56,23 @@ const NotificationContainer: React.FC<NotificationContainerProps> = ({ children 
         setShowNotificationList(!showNotificationList);
     }
 
+    const handleCloseNotificationsClick = () => {
+        setShowNotificationList(!showNotificationList);
+    }
+
     return (
         <div>
             <NotificationBell
                 unreadCount={appNotifications.filter((notification) => !notification.read).length}
                 onClick={handleBellClick}
             />
-                <div className={showNotificationList ? 'notification-list' : 'hidden'}>
+            {
+                showNotificationList && (
                     <NotificationList
                         notifications={appNotifications}
                         onNotificationClick={handleNotificationsClick}
-                    />
-                </div>
+                        onClose={handleCloseNotificationsClick}
+                    />)}
             {children}
         </div>
     )

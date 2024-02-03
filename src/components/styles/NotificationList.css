@@ -1,0 +1,43 @@
+.notification-list {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    background-color: #212529;
+    border-bottom-width: 1px solid #ccc;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.notification-title{
+    flex: 1;
+    text-align: center;
+}
+
+.notification-content {
+    padding: 8px;
+}
+
+
+.arrow-icon {
+    /* Styles for the arrow icon */
+}
+
+.close-icon {
+    cursor: pointer;
+    font-size: 18px;
+    transition: color 0.3s ease; /* Transition for a smooth colour change */
+    /* Styles for the close icon */
+}
+
+.close-icon:hover{
+    color:red;
+}
