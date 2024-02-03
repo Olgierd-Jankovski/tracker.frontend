@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
+import NotificationContainer from './NotificationContainer.tsx'
 import { Nav, Button } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { ActionCreators } from '../redux/authenticationReducer';
@@ -22,6 +23,7 @@ const Navbar = () => {
                     <NavLink style={{ marginLeft: '1rem' }} variant='link' to='/statistics'>Statistics</NavLink>
                     <NavLink style={{ marginLeft: '1rem' }} variant='link' to='/fill-up'>Fill Up</NavLink>
                     <Button variant='link' href='/signin' onClick={() => dispatch(logout())}> Log out</Button>
+                    <NotificationContainer />
                 </div>
 
                 :

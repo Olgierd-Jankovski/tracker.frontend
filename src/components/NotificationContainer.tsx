@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppNotification, AppNotificationsState, ActionCreators } from '../redux/notificationsReducer'
 import NotificationBell from './NotificationBell';
 import NotificationList from './NotificationList';
+import './styles/Notification.css';
 
 interface NotificationContainerProps {
     children: React.ReactNode;
@@ -57,11 +58,12 @@ const NotificationContainer: React.FC<NotificationContainerProps> = ({ children 
                 unreadCount={appNotifications.filter((notification) => !notification.read).length}
                 onClick={handleBellClick}
             />
-            {showNotificationList && (
-                <NotificationList
-                    notifications={appNotifications}
-                    onNotificationClick={handleNotificationsClick}
-                />)}
+                <div className={showNotificationList ? 'notification-list' : 'hidden'}>
+                    <NotificationList
+                        notifications={appNotifications}
+                        onNotificationClick={handleNotificationsClick}
+                    />
+                </div>
             {children}
         </div>
     )
