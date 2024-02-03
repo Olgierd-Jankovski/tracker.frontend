@@ -9,6 +9,10 @@ interface NotificationListProps {
 }
 
 const Notificationlist: React.FC<NotificationListProps> = ({ notifications, onNotificationClick, onClose }) => {
+    // Separate warning notifications from regular ones
+    const warningNotifications = notifications.filter(notification => notification.type === 'warning');
+    const regularNotifications = notifications.filter(notification => notification.type === 'info');
+
     return (
         <div className='notification-list'>
             <div className='notification-header'>
@@ -19,8 +23,25 @@ const Notificationlist: React.FC<NotificationListProps> = ({ notifications, onNo
             </div>
             <div className='notification-content'>
                 <ul>
-                    {notifications.map((notification => (
-                        <li key={notification.id} onClick={() => onNotificationClick(notification.id)}>
+                    {/* Display warning notifications first */}
+                    {warningNotifications.map((notification) => (
+                        <li
+                            key={notification.id}
+                            className={`warning-notification ${notification.read ? '' : 'unread-notification'}`}
+                            onClick={() => onNotificationClick(notification.id)}>
+                            <span className='warning-icon'>
+                                [!]
+                            </span>
+                            {notification.message}
+                        </li>
+                    ))}
+
+                    {/* Display regular notifications */}
+                    {regularNotifications.map((notification => (
+                        <li
+                            key={notification.id}
+                            className={notification.read ? '' : 'unread-notification'}
+                            onClick={() => onNotificationClick(notification.id)}>
                             {notification.message}
                         </li>
                     )))}

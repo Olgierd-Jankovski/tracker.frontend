@@ -17,7 +17,7 @@
     border-bottom: 1px solid #ccc;
 }
 
-.notification-title{
+.notification-title {
     flex: 1;
     text-align: center;
 }
@@ -26,18 +26,51 @@
     padding: 8px;
 }
 
+.warning-notification {
+    color: #ffcccb;
+    padding: 3px;
+    margin-bottom: 3px;
+}
+
+.regular-notification {
+    padding: 3px;
+    margin-bottom: 3px;
+}
+
+.unread-notification {
+    background-color: #3e3e3e;
+}
 
 .arrow-icon {
     /* Styles for the arrow icon */
 }
 
+.warning-icon {
+    font-size: 18px;
+    color: red;
+}
+
 .close-icon {
     cursor: pointer;
     font-size: 18px;
-    transition: color 0.3s ease; /* Transition for a smooth colour change */
+    transition: color 0.3s ease;
+    /* Transition for a smooth colour change */
     /* Styles for the close icon */
 }
 
-.close-icon:hover{
-    color:red;
+.close-icon:hover {
+    color: red;
+}
+
+/* Remove default list styles */
+ul,
+ol {
+    list-style: none;
+}
+
+/* Style for each list item */
+li {
+    padding-left: 0;
+    /* Remove default left padding for list items */
+    margin-bottom: 8px;
 }
