@@ -1,0 +1,90 @@
+.notification-list {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    z-index: 1000;
+    background-color: #212529;
+    border-bottom-width: 1px solid #ccc;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.notification-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 8px;
+    border-top: 1px solid #ccc;
+    background-color: #3e3e3e;
+}
+
+.notification-footer-title {
+    flex: 1;
+    text-align: center;
+}
+
+.notification-title {
+    flex: 1;
+    text-align: center;
+}
+
+.notification-content {
+    padding: 8px;
+}
+
+.warning-notification {
+    color: #ffcccb;
+    padding: 3px;
+    margin-bottom: 3px;
+}
+
+.regular-notification {
+    padding: 3px;
+    margin-bottom: 3px;
+}
+
+.unread-notification {
+    background-color: #3e3e3e;
+}
+
+.arrow-icon {
+    /* Styles for the arrow icon */
+}
+
+.warning-icon {
+    font-size: 18px;
+    color: red;
+}
+
+.close-icon {
+    cursor: pointer;
+    font-size: 18px;
+    transition: color 0.3s ease;
+    /* Transition for a smooth colour change */
+    /* Styles for the close icon */
+}
+
+.close-icon:hover {
+    color: red;
+}
+
+/* Remove default list styles */
+ul,
+ol {
+    list-style: none;
+}
+
+/* Style for each list item */
+li {
+    padding-left: 0;
+    /* Remove default left padding for list items */
+    margin-bottom: 8px;
+}

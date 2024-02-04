@@ -47,7 +47,7 @@ const App = () => {
       />
       <Route
         path='/statistics'
-        element={isLoggedIn ?<StatisticsPage /> : <SignInPage />}
+        element={isLoggedIn ? <StatisticsPage /> : <SignInPage />}
       />
 
       <Route
