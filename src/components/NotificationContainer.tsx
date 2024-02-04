@@ -18,7 +18,7 @@ const NotificationContainer: React.FC<NotificationContainerProps> = ({ children 
         return Array.from({ length: 5 }, (_, index) => {
             const type = index % 2 === 0 ? 'info' : 'warning';
             const message = index % 2 === 0 ? `Dummy Notification ${index + 1}` : 'Ongoing maintenace in 1 hour!';
-            return{
+            return {
 
                 id: `id_${index}`,
                 message: message,
@@ -60,16 +60,19 @@ const NotificationContainer: React.FC<NotificationContainerProps> = ({ children 
         setShowNotificationList(!showNotificationList);
     }
 
+    const unreadCount = appNotifications.filter((notification) => !notification.read).length;
+
     return (
         <div>
             <NotificationBell
-                unreadCount={appNotifications.filter((notification) => !notification.read).length}
+                unreadCount={unreadCount}
                 onClick={handleBellClick}
             />
             {
                 showNotificationList && (
                     <NotificationList
                         notifications={appNotifications}
+                        unreadCount={unreadCount}
                         onNotificationClick={handleNotificationsClick}
                         onClose={handleCloseNotificationsClick}
                     />)}

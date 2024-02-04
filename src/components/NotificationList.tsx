@@ -4,16 +4,17 @@ import './styles/NotificationList.css'
 
 interface NotificationListProps {
     notifications: AppNotification[];
+    unreadCount: number;
     onNotificationClick: (id: string) => void;
     onClose: () => void;
 }
 
-const Notificationlist: React.FC<NotificationListProps> = ({ notifications, onNotificationClick, onClose }) => {
+const Notificationlist: React.FC<NotificationListProps> = ({ notifications, unreadCount, onNotificationClick, onClose }) => {
     // Separate warning notifications from regular ones
     const warningNotifications = notifications.filter(notification => notification.type === 'warning');
     const regularNotifications = notifications.filter(notification => notification.type === 'info');
 
-    return (
+    return ( 
         <div className='notification-list'>
             <div className='notification-header'>
                 <span className="notification-title">Notifications</span>
@@ -46,6 +47,10 @@ const Notificationlist: React.FC<NotificationListProps> = ({ notifications, onNo
                         </li>
                     )))}
                 </ul>
+            </div>
+            <div className='notification-footer'>
+                <span className='notification-footer-title'>Message Inbox: </span>
+                {unreadCount > 0 ? `(${unreadCount} Unread messages)` : '(No unread messages!)'}
             </div>
         </div>
     )
